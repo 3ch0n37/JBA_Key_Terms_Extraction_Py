@@ -26,6 +26,7 @@ def main():
         tokens = nltk.tokenize.word_tokenize(text.lower())
         tokens = sorted(tokens, reverse=True)
         tokens = [lemmatizer.lemmatize(word) for word in tokens]
+        tokens = [word for word in tokens if nltk.pos_tag([word])[0][1] == 'NN']
         tokens = list(filter(lambda w: w not in excluded, tokens))
         stories[head] = Counter(tokens).most_common(5)
     for head in stories:
